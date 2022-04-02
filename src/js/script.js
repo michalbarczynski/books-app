@@ -46,7 +46,7 @@
       image.addEventListener('click', function (event) {
         event.preventDefault();
         /* get book id from a clicked image */
-
+        
         /* Check if clicked image is already in favoriteBooks array*/
         if () {
           /* If is, remove class favorite from the clicked image */
