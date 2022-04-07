@@ -44,6 +44,8 @@
           price: book.price,
           image: book.image,
           rating: book.rating,
+          ratingBgc: book.ratingBgc,
+          ratingWidth: book.ratingWidth,
         });
         const generatedDOM = utils.createDOMFromHTML(generatedHTML);
         thisBookList.booksContainer.appendChild(generatedDOM);
