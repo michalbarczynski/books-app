@@ -36,10 +36,7 @@
       for (let book of booksData) {
 
         book.ratingBgc = thisBookList.determineRatingBgc(book.rating);
-        console.log(book.ratingBgc);
-
         book.ratingWidth = book.rating * 10;
-        console.log(book.ratingWidth);
 
         const generatedHTML = templates.booksList(book);
         const generatedDOM = utils.createDOMFromHTML(generatedHTML);
@@ -58,8 +55,8 @@
       thisBookList.booksContainer.addEventListener('dblclick', function (event) {
         event.preventDefault();
         const image = event.target.offsetParent;
-        console.log(image);
-        thisBookList.clickedBook = image.getAttribute('id');
+        thisBookList.clickedBook = image.getAttribute('data-id');
+        console.log(thisBookList.clickedBook);
         //data-id powyżej daje ten sam efekt
         //if (event.target.offsetParent.classList.contains('.book__image')) {
         if (select.arrays.favouritebooks.includes(thisBookList.clickedBook)) {
@@ -73,8 +70,14 @@
         //}
       });
 
-      thisBookList.booksContainer.addEventListener('click', function (event) {
+      thisBookList.filter.addEventListener('click', function (event) {
         event.preventDefault();
+        const clickedElement = event.target;
+        const indexOfElement = select.arrays.filters.indexOf(clickedElement.value);
+        if (clickedElement.tagName == 'INPUT' && clickedElement.type == 'checkbox' && clickedElement.name == 'filter') {
+          clickedElement.checked == true ? select.arrays.filters.push(clickedElement.value) : select.arrays.filters.splice(indexOfElement,1);
+        }
+        thisBookList.filterBooks();
       });
     }
 
@@ -83,7 +86,7 @@
       for (let book of booksData) {
         let shouldBeHidden = false;
         const filteredBook = document.querySelector('.book__image[data-id="'+ thisBookList.clickedBook +'"]');
-
+        console.log(filteredBook);
         for (let filter of select.arrays.filters) {
           if (!book.details[filter]) {
             console.log(!book.details[filter]);
